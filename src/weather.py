@@ -21,7 +21,21 @@ location_data=get_location()
  
 api_key = "BTr1dNstfwkjBSYXdIKDnmGPXRs2zh5y"
 
-# Replace with the AccuWeather endpoint for getting location information from IP
-LOCATION_ENDPOINT = "http://dataservice.accuweather.com/locations/v1/cities/ipaddress"
+def get_forecast():
+    location_data = get_location()
+    response = requests.get(f'http://dataservice.accuweather.com/locations/v1/cities/search?apikey={api_key}&q={location_data["city"]},{location_data["region"]},{location_data["country"]}&details=true').json()
+    location_key = response[0]["Key"]
+    response = requests.get(f'http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/{location_key}?apikey={api_key}&details=true&metric=true').json()
+    forecast_data = []
+    for forecast in response:
+        forecast_data.append({
+            "time": forecast["DateTime"],
+            "temp": forecast["Temperature"]["Value"],
+            "rain": forecast["PrecipitationProbability"],
+            "icon": forecast["WeatherIcon"]
+        })
+    return forecast_data
 
-print(location_data)
+forecast=get_forecast()
+for i in range(len(forecast)):
+    print(forecast[i]['temp'])
