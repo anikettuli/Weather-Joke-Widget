@@ -27,7 +27,7 @@ class WeatherJokeWidget(QWidget):
         self.update_data()
 
     def initUI(self):
-        self.setWindowTitle("Weather and Joke Display")
+        self.setWindowTitle("Weather and Joke Widget")
         self.setGeometry(100, 100, 400, 200)
 
         self.weather_label = QLabel("Weather: N/A", self)

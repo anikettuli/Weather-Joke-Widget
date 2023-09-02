@@ -45,12 +45,7 @@ python joke.py
 
 ### Weather Joke Widget
 - This module combines the functionality of fetching a random joke and displaying the weather forecast in a graphical user interface (GUI).
-- To use the Weather Joke Widget:
-  1. Make sure you have PyQt5 installed:
-     ```bash
-     pip install PyQt5
-     ```
-  2. Run the `ui.py` script:
+- To use the Weather Joke Widget, run the `ui.py` script:
      ```bash
      python ui.py
      ```
