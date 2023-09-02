@@ -1,5 +1,4 @@
-```markdown
-## Joke and Weather App
+# Joke and Weather App
 
 This Python application fetches and displays a random joke using the JokeAPI and provides the weather forecast based on your current location using the AccuWeather API.
 
