@@ -47,4 +47,11 @@ def get_forecast():
 
 forecast = get_forecast()
 for i in range(len(forecast)):
-    print(forecast[i]["temp"])
+    print(
+        "Time: ",
+        forecast[i]["time"],
+        "Temperature: ",
+        forecast[i]["temp"],
+        "Rain: ",
+        forecast[i]["rain"],
+    )
