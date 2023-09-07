@@ -1,6 +1,5 @@
 import sys
 import asyncio
-from datetime import datetime
 
 
 # Import PyQt6 libraries
@@ -35,7 +34,7 @@ class WeatherJokeWidget(QWidget):
         self.setWindowTitle("Weather and Joke Widget")
         self.setGeometry(100, 100, 400, 200)
 
-        self.weather_label = QLabel(f"Weather in {get_location}: N/A", self)
+        self.weather_label = QLabel(f"Weather: N/A", self)
         self.joke_label = QLabel("Joke: N/A", self)
 
         self.update_button = QPushButton("Update", self)
@@ -62,11 +61,13 @@ class WeatherJokeWidget(QWidget):
         loop = asyncio.get_event_loop()
         joke_data = loop.run_until_complete(get_joke())
 
-        self.weather_label.setText(f"Weather Forecast:\n{weather_data}")
+        self.weather_label.setText(
+            f"12 Hour Weather Forecast in {get_location()['city']}:\n{weather_data}"
+        )
         self.joke_label.setText(f"Joke:\n{joke_data}")
 
-        # Automatically close the window after 15 seconds
-        QTimer.singleShot(15000, self.close)
+        # Automatically close the window after 20 seconds
+        QTimer.singleShot(20000, self.close)
 
 
 if __name__ == "__main__":
