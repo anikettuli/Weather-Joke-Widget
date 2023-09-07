@@ -1,25 +1,30 @@
 import sys
 import asyncio
+from datetime import datetime
 
-# Import PyQt5 libraries
+
+# Import PyQt6 libraries
 try:
-    from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QPushButton
-    from PyQt5.QtCore import QTimer  # Import QTimer for auto-closing
+    from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QPushButton
+    from PyQt6.QtCore import QTimer  # Import QTimer for auto-closing
 except ImportError:
     # If PyQt5 is not installed, attempt to install it
     import os
 
-    os.system("pip install PyQt5")
+    os.system("pip install PyQt6")
 
-    from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QPushButton
-    from PyQt5.QtCore import QTimer  # Import QTimer for auto-closing
+    from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QPushButton
+    from PyQt6.QtCore import QTimer  # Import QTimer for auto-closing
 
 # Import functions from external modules
-from weather import get_forecast  # Import the get_forecast function from weather.py
+from weather import (
+    get_forecast,
+    get_location,
+)  # Import the get_forecast function from weather.py
 from joke import get_joke  # Import the get_joke function from joke.py
 
 
-# Create a PyQt5 widget for displaying weather and jokes
+# Create a PyQt6 widget for displaying weather and jokes
 class WeatherJokeWidget(QWidget):
     def __init__(self):
         super().__init__()
@@ -30,7 +35,7 @@ class WeatherJokeWidget(QWidget):
         self.setWindowTitle("Weather and Joke Widget")
         self.setGeometry(100, 100, 400, 200)
 
-        self.weather_label = QLabel("Weather: N/A", self)
+        self.weather_label = QLabel(f"Weather in {get_location}: N/A", self)
         self.joke_label = QLabel("Joke: N/A", self)
 
         self.update_button = QPushButton("Update", self)
@@ -48,23 +53,24 @@ class WeatherJokeWidget(QWidget):
         forecast = get_forecast()
         weather_data = "\n".join(
             [
-                f"Time: {item['time']}, Temperature: {item['temp']}°C, Rain: {item['rain']}%"
+                f"Time: {item['time'].strftime('%I %p')}, Temperature: {item['temp']}°C, Rain: {item['rain']}%"
                 for item in forecast
             ]
         )
 
         # Get a joke using get_joke from joke.py, await it
-        joke_data = asyncio.run(get_joke())
+        loop = asyncio.get_event_loop()
+        joke_data = loop.run_until_complete(get_joke())
 
         self.weather_label.setText(f"Weather Forecast:\n{weather_data}")
         self.joke_label.setText(f"Joke:\n{joke_data}")
 
-        # Automatically close the window after 10 seconds
-        QTimer.singleShot(10000, self.close)
+        # Automatically close the window after 15 seconds
+        QTimer.singleShot(15000, self.close)
 
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = WeatherJokeWidget()
     window.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())

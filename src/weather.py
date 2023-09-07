@@ -1,4 +1,5 @@
 import requests
+from datetime import datetime
 
 
 # Function to get the public IP address using the ipify.org API
@@ -52,7 +53,7 @@ def get_forecast():
     for forecast in response:
         forecast_data.append(
             {
-                "time": forecast["DateTime"],
+                "time": datetime.fromisoformat(forecast["DateTime"]),
                 "temp": forecast["Temperature"]["Value"],
                 "rain": forecast["PrecipitationProbability"],
                 "icon": forecast["WeatherIcon"],
@@ -69,11 +70,11 @@ def main():
     for i in range(len(forecast)):
         print(
             "Time: ",
-            forecast[i]["time"],
+            forecast[i]["time"].strftime("%I %p"),
             "Temperature: ",
-            forecast[i]["temp"],
+            forecast[i]["temp"],"°C",
             "Rain: ",
-            forecast[i]["rain"],
+            forecast[i]["rain"],"%"
         )
 
 
