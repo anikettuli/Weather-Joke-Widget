@@ -57,5 +57,4 @@ python joke.py
 - `weather.py` retrieves your current IP address and uses it to determine your location. It then fetches the weather forecast using the AccuWeather API for that location.
 
 ## License
-I will license this soon.
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+I will NOT be licensing this 

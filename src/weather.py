@@ -72,9 +72,11 @@ def main():
             "Time: ",
             forecast[i]["time"].strftime("%I %p"),
             "Temperature: ",
-            forecast[i]["temp"],"°C",
+            forecast[i]["temp"],
+            "°C",
             "Rain: ",
-            forecast[i]["rain"],"%"
+            forecast[i]["rain"],
+            "%",
         )
 
 
